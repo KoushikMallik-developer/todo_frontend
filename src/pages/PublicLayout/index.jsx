@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import * as React from 'react'
+import Navbar from '../../components/Navbar.jsx'
 // import Header from '../../components/Header/index.jsx'
 // import Footer from '../../components/Footer/index.jsx'
 
@@ -7,7 +8,7 @@ import * as React from 'react'
 const PublicLayout = () => {
     return (
         <div className="bg-neutral-900 text-white">
-            {/*<Header />*/}
+            <Navbar />
             <Outlet />
             {/*<Footer />*/}
         </div>

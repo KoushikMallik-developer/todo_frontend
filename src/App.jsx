@@ -11,6 +11,7 @@ import Register from './pages/Register.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import ForgetPassword from './pages/ForgetPassword.jsx'
 import PasswordReset from './pages/PasswordReset.jsx'
+import History from './pages/History.jsx'
 
 function App() {
     return (
@@ -46,14 +47,15 @@ function App() {
                     />
                 </Route>
                 <Route element={<ProtectedRoute />}>
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    {/*    <Route element={<PublicLayout />}>*/}
-                    {/*        <Route path="/profile" element={<Profile />} />*/}
-                    {/*        <Route*/}
-                    {/*            path="/workspaces"*/}
-                    {/*            element={<WorkspaceListPage />}*/}
-                    {/*        />*/}
-                    {/*    </Route>*/}
+                    <Route element={<PublicLayout />}>
+                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/history" element={<History />} />
+                        {/*        <Route path="/profile" element={<Profile />} />*/}
+                        {/*        <Route*/}
+                        {/*            path="/workspaces"*/}
+                        {/*            element={<WorkspaceListPage />}*/}
+                        {/*        />*/}
+                    </Route>
                 </Route>
             </Routes>
         </>

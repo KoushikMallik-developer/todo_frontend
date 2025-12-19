@@ -157,21 +157,21 @@ const Register = () => {
 
                         <div className="text-center text-white/70 text-sm">
                             Already have an account?{' '}
-                            <button
-                                // onClick={() => onNavigate('login')}
+                            <Link
+                                to="/login"
                                 className="text-white font-semibold hover:underline"
                             >
                                 Sign in
-                            </button>
+                            </Link>
                         </div>
 
                         <div className="text-center">
-                            <button
-                                // onClick={() => onNavigate('landing')}
+                            <Link
+                                to="/"
                                 className="text-white/50 hover:text-white/70 text-sm transition-colors"
                             >
                                 ← Back to home
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 ) : (

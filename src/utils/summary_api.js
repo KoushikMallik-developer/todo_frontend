@@ -61,6 +61,22 @@ const SummaryApi = {
         url: '/api/toggle',
         method: 'post',
     },
+    fetchForDate: {
+        url: '/api/fetch-for-date',
+        method: 'get',
+    },
+    fetchForLastDays: {
+        url: '/api/fetch-for-last-days',
+        method: 'get',
+    },
+    stats: {
+        url: '/api/stats',
+        method: 'get',
+    },
+    insights: {
+        url: '/api/insights',
+        method: 'get',
+    },
 }
 
 export default SummaryApi

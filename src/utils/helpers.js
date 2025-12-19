@@ -73,4 +73,19 @@ function cleanErrorMessage(errorMessage) {
     return errorMessage // Return the original message if no prefix matches
 }
 
-export { isValidEmail, arePasswordsMatching, isValidName, cleanErrorMessage }
+function formatDateTimeForEveryday(datetime) {
+    const date = new Date(datetime)
+    return date.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+    })
+}
+
+export {
+    isValidEmail,
+    arePasswordsMatching,
+    isValidName,
+    cleanErrorMessage,
+    formatDateTimeForEveryday,
+}

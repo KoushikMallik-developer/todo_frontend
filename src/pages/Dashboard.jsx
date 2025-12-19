@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { api } from '../api.js'
-import { Check, Plus, Trash2 } from 'lucide-react'
+import { Check, Clock, Plus, Trash2 } from 'lucide-react'
 import {
     createTodo,
     deleteTodo,
@@ -9,6 +9,7 @@ import {
 } from '../store/slices/todoSlice.js'
 import { useDispatch, useSelector } from 'react-redux'
 import toast from 'react-hot-toast'
+import { formatDateTimeForEveryday } from '../utils/helpers.js'
 
 const Dashboard = () => {
     const { todos, isLoading, error } = useSelector((state) => state.todo)
@@ -38,7 +39,7 @@ const Dashboard = () => {
         dispatch(deleteTodo({ todo_id: id }))
     }
     return (
-        <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700">
+        <div className="min-h-screen flex items-center justify-center p-4 pt-20 relative overflow-hidden bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700">
             {/* Animated background elements */}
             <div className="absolute inset-0 overflow-hidden">
                 <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
@@ -138,9 +139,17 @@ const Dashboard = () => {
                                         {todo.title}
                                     </span>
                                 </div>
+                                {todo.completed && todo.created_at && (
+                                    <span className="text-white/50 text-sm flex items-center gap-1">
+                                        <Clock size={14} />
+                                        {formatDateTimeForEveryday(
+                                            todo.completed_at
+                                        )}
+                                    </span>
+                                )}
                                 <button
                                     onClick={() => handleDelete(todo.id)}
-                                    className="flex-shrink-0 p-2 text-white/60 hover:text-red-400 hover:bg-red-500/20 rounded-lg transition-all duration-200 opacity-0 group-hover:opacity-100"
+                                    className="flex-shrink-0 p-2 text-white/60 text-red-400 bg-red-500/20 rounded-lg"
                                 >
                                     <Trash2 size={18} />
                                 </button>

@@ -131,10 +131,98 @@ export const toggleTodo = createAsyncThunk(
     }
 )
 
+export const getTodosForDate = createAsyncThunk(
+    'getTodosForDate',
+    async (todoData, thunkAPI) => {
+        try {
+            const payload = {
+                todo_id: todoData['todo_id'],
+            }
+            const response = await Axios({
+                ...SummaryApi.fetchForDate,
+            })
+            return {
+                message: response.data.message,
+                data: response.data.data,
+                status_code: response.status,
+            }
+        } catch (error) {
+            const errorPayload = AxiosToastError(error)
+            return thunkAPI.rejectWithValue({
+                message: errorPayload.message,
+                status_code: error.status,
+            })
+        }
+    }
+)
+export const getLastDaysTodos = createAsyncThunk(
+    'getLastDaysTodos',
+    async (thunkAPI) => {
+        try {
+            const response = await Axios({
+                ...SummaryApi.fetchForLastDays,
+            })
+            return {
+                message: response.data.message,
+                data: response.data.data,
+                status_code: response.status,
+            }
+        } catch (error) {
+            const errorPayload = AxiosToastError(error)
+            return thunkAPI.rejectWithValue({
+                message: errorPayload.message,
+                status_code: error.status,
+            })
+        }
+    }
+)
+
+export const getStats = createAsyncThunk('getStats', async (thunkAPI) => {
+    try {
+        const response = await Axios({
+            ...SummaryApi.stats,
+        })
+        return {
+            message: response.data.message,
+            data: response.data.data,
+            status_code: response.status,
+        }
+    } catch (error) {
+        const errorPayload = AxiosToastError(error)
+        return thunkAPI.rejectWithValue({
+            message: errorPayload.message,
+            status_code: error.status,
+        })
+    }
+})
+
+export const getInsights = createAsyncThunk('getInsights', async (thunkAPI) => {
+    try {
+        const response = await Axios({
+            ...SummaryApi.insights,
+        })
+        return {
+            message: response.data.message,
+            data: response.data.data,
+            status_code: response.status,
+        }
+    } catch (error) {
+        const errorPayload = AxiosToastError(error)
+        return thunkAPI.rejectWithValue({
+            message: errorPayload.message,
+            status_code: error.status,
+        })
+    }
+})
+
 const todoSlice = createSlice({
-    name: 'auth',
+    name: 'todo',
     initialState: {
         todos: [],
+        lastDaysTodos: [],
+        stats: {},
+        insights: {},
+        historyTodos: [],
         isLoading: false,
         message: null,
         status_code: null,
@@ -150,7 +238,6 @@ const todoSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            // Login user
             .addCase(fetchTodos.pending, (state) => {
                 state.isLoading = true
                 state.message = null
@@ -175,7 +262,104 @@ const todoSlice = createSlice({
                 state.message = cleanErrorMessage(action.payload.message)
                 state.status_code = action.payload.status_code
             })
-            // Register user
+            .addCase(getTodosForDate.pending, (state) => {
+                state.isLoading = true
+                state.message = null
+                state.status_code = null
+            })
+            .addCase(getTodosForDate.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.todos = action.payload.data ? action.payload.data : []
+                state.status_code = action.payload.status_code
+                if (action.payload.message != null) {
+                    state.message = cleanErrorMessage(action.payload.message)
+                } else {
+                    state.message = 'Todos fetched successfully'
+                }
+                if (action.payload.token) {
+                    localStorage.setItem('access_token', action.payload.token)
+                }
+                toast.success(state.message || 'Todos fetched successfully')
+            })
+            .addCase(getTodosForDate.rejected, (state, action) => {
+                state.isLoading = false
+                state.message = cleanErrorMessage(action.payload.message)
+                state.status_code = action.payload.status_code
+            })
+            .addCase(getLastDaysTodos.pending, (state) => {
+                state.isLoading = true
+                state.message = null
+                state.status_code = null
+            })
+            .addCase(getLastDaysTodos.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.lastDaysTodos = action.payload.data
+                    ? action.payload.data
+                    : []
+                state.status_code = action.payload.status_code
+                if (action.payload.message != null) {
+                    state.message = cleanErrorMessage(action.payload.message)
+                } else {
+                    state.message = 'Todos fetched successfully'
+                }
+                if (action.payload.token) {
+                    localStorage.setItem('access_token', action.payload.token)
+                }
+                toast.success(state.message || 'Todos fetched successfully')
+            })
+            .addCase(getLastDaysTodos.rejected, (state, action) => {
+                state.isLoading = false
+                state.message = cleanErrorMessage(action.payload.message)
+                state.status_code = action.payload.status_code
+            })
+            .addCase(getStats.pending, (state) => {
+                state.isLoading = true
+                state.message = null
+                state.status_code = null
+            })
+            .addCase(getStats.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.stats = action.payload.data
+                state.status_code = action.payload.status_code
+                if (action.payload.message != null) {
+                    state.message = cleanErrorMessage(action.payload.message)
+                } else {
+                    state.message = 'Stats fetched successfully'
+                }
+                if (action.payload.token) {
+                    localStorage.setItem('access_token', action.payload.token)
+                }
+                toast.success(state.message || 'Stats fetched successfully')
+            })
+            .addCase(getStats.rejected, (state, action) => {
+                state.isLoading = false
+                state.message = cleanErrorMessage(action.payload.message)
+                state.status_code = action.payload.status_code
+            })
+            .addCase(getInsights.pending, (state) => {
+                state.isLoading = true
+                state.message = null
+                state.status_code = null
+            })
+            .addCase(getInsights.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.insights = action.payload.data
+                state.status_code = action.payload.status_code
+                if (action.payload.message != null) {
+                    state.message = cleanErrorMessage(action.payload.message)
+                } else {
+                    state.message = 'Stats fetched successfully'
+                }
+                if (action.payload.token) {
+                    localStorage.setItem('access_token', action.payload.token)
+                }
+                toast.success(state.message || 'Stats fetched successfully')
+            })
+            .addCase(getInsights.rejected, (state, action) => {
+                state.isLoading = false
+                state.message = cleanErrorMessage(action.payload.message)
+                state.status_code = action.payload.status_code
+            })
             .addCase(createTodo.pending, (state) => {
                 state.isLoading = true
                 state.message = null
@@ -187,7 +371,7 @@ const todoSlice = createSlice({
                 } else {
                     state.message = 'Todo created successfully.'
                 }
-                state.todos.push(action.payload.data)
+                state.todos = [action.payload.data, ...state.todos]
                 state.status_code = action.payload.status_code
                 toast.success(state.message || 'Todo created successfully.')
             })

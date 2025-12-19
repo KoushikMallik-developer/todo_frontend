@@ -175,7 +175,7 @@ export const searchAllUsers = createAsyncThunk(
                 query: query,
             }
             const response = await Axios({
-                ...SummaryApi.searchAllUsers,
+                ...SummaryApi.searchUsers,
                 data: payload,
             })
             return {
@@ -196,7 +196,6 @@ export const searchAllUsers = createAsyncThunk(
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        currentAuthForm: 'login',
         user: null,
         searchedUsers: [],
         isLoggedIn: false,
@@ -207,12 +206,6 @@ const authSlice = createSlice({
         status_code: null,
     },
     reducers: {
-        setCurrentAuthForm: (state, action) => {
-            state.currentAuthForm = action.payload
-        },
-        resetCurrentAuthForm: (state) => {
-            state.currentAuthForm = 'login'
-        },
         logout: (state) => {
             state.user = null
             state.token = null
@@ -220,7 +213,6 @@ const authSlice = createSlice({
             state.isLoggedIn = false
             localStorage.removeItem('access_token')
             localStorage.removeItem('refresh_token')
-            clearSocketListeners()
         },
         resetAuthState: (state) => {
             state.message = null
