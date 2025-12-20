@@ -12,7 +12,7 @@ import toast from 'react-hot-toast'
 import { formatDateTimeForEveryday } from '../utils/helpers.js'
 
 const Dashboard = () => {
-    const { todos, isLoading, error } = useSelector((state) => state.todo)
+    const { todos, isLoading } = useSelector((state) => state.todo)
 
     const dispatch = useDispatch()
 
@@ -86,13 +86,6 @@ const Dashboard = () => {
                         </button>
                     </div>
                 </div>
-
-                {/* Error message */}
-                {error && (
-                    <div className="mb-4 p-4 bg-red-500/20 backdrop-blur-sm border border-red-500/30 rounded-xl text-red-100 text-sm">
-                        {error}
-                    </div>
-                )}
 
                 {/* Loading state */}
                 {isLoading && (
@@ -181,47 +174,6 @@ const Dashboard = () => {
                     </div>
                 )}
             </div>
-
-            {/*<style>{`*/}
-            {/*  @keyframes blob {*/}
-            {/*    0%, 100% { */}
-            {/*      transform: translate(0, 0) scale(1); */}
-            {/*    }*/}
-            {/*    33% { */}
-            {/*      transform: translate(30px, -50px) scale(1.1); */}
-            {/*    }*/}
-            {/*    66% { */}
-            {/*      transform: translate(-20px, 20px) scale(0.9); */}
-            {/*    }*/}
-            {/*  }*/}
-            {/*  */}
-            {/*  .animate-blob {*/}
-            {/*    animation: blob 7s infinite ease-in-out;*/}
-            {/*  }*/}
-            {/*  */}
-            {/*  .animation-delay-2000 {*/}
-            {/*    animation-delay: 2s;*/}
-            {/*  }*/}
-            {/*  */}
-            {/*  .animation-delay-4000 {*/}
-            {/*    animation-delay: 4s;*/}
-            {/*  }*/}
-            {/*  */}
-            {/*  @keyframes slideIn {*/}
-            {/*    from {*/}
-            {/*      opacity: 0;*/}
-            {/*      transform: translateY(-10px);*/}
-            {/*    }*/}
-            {/*    to {*/}
-            {/*      opacity: 1;*/}
-            {/*      transform: translateY(0);*/}
-            {/*    }*/}
-            {/*  }*/}
-            {/*  */}
-            {/*  input::placeholder {*/}
-            {/*    color: rgba(255, 255, 255, 0.5);*/}
-            {/*  }*/}
-            {/*`}</style>*/}
         </div>
     )
 }

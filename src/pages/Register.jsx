@@ -86,7 +86,7 @@ const Register = () => {
         }
     }
     return (
-        <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700">
+        <div className="min-h-screen flex items-center justify-center p-4 pt-20 relative overflow-hidden bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700">
             <AnimatedBackground />
 
             <div className="relative w-full max-w-md bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20 animate-fadeIn">
@@ -97,7 +97,7 @@ const Register = () => {
                     <p className="text-white/70">
                         {showOTP
                             ? 'Enter the 6-digit code sent to your email'
-                            : 'Join Task Master today'}
+                            : 'Join us today'}
                     </p>
                 </div>
 

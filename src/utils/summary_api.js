@@ -63,7 +63,7 @@ const SummaryApi = {
     },
     fetchForDate: {
         url: '/api/fetch-for-date',
-        method: 'get',
+        method: 'post',
     },
     fetchForLastDays: {
         url: '/api/fetch-for-last-days',

@@ -26,7 +26,7 @@ const Navbar = () => {
                     <Link to="/" className="flex items-center cursor-pointer">
                         <CheckCircle className="text-white mr-2" size={28} />
                         <span className="text-white text-xl font-bold">
-                            Task Master
+                            {import.meta.env.VITE_APP_NAME || 'Task Master'}
                         </span>
                     </Link>
 

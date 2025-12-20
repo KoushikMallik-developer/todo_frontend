@@ -136,10 +136,11 @@ export const getTodosForDate = createAsyncThunk(
     async (todoData, thunkAPI) => {
         try {
             const payload = {
-                todo_id: todoData['todo_id'],
+                todo_date: todoData['todo_date'],
             }
             const response = await Axios({
                 ...SummaryApi.fetchForDate,
+                data: payload,
             })
             return {
                 message: response.data.message,
@@ -269,7 +270,9 @@ const todoSlice = createSlice({
             })
             .addCase(getTodosForDate.fulfilled, (state, action) => {
                 state.isLoading = false
-                state.todos = action.payload.data ? action.payload.data : []
+                state.historyTodos = action.payload.data
+                    ? action.payload.data
+                    : {}
                 state.status_code = action.payload.status_code
                 if (action.payload.message != null) {
                     state.message = cleanErrorMessage(action.payload.message)
@@ -295,7 +298,7 @@ const todoSlice = createSlice({
                 state.isLoading = false
                 state.lastDaysTodos = action.payload.data
                     ? action.payload.data
-                    : []
+                    : {}
                 state.status_code = action.payload.status_code
                 if (action.payload.message != null) {
                     state.message = cleanErrorMessage(action.payload.message)
