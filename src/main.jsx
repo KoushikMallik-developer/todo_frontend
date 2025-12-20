@@ -7,6 +7,7 @@ import { persistor, store } from './store/store.js'
 import App from './App.jsx'
 import { PersistGate } from 'redux-persist/integration/react'
 
+document.title = import.meta.env.VITE_APP_NAME || 'Task Master'
 ReactDOM.createRoot(document.getElementById('root')).render(
     // <React.StrictMode>
     <Provider store={store}>
